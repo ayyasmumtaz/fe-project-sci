@@ -1,43 +1,20 @@
 import { Navigate, type RouteObject } from 'react-router-dom';
 
-import MainLayout from '@/components/layouts/main-layout';
-import { LoginPage } from '@/features/auth/login-page';
-import { ChartsPage } from '@/features/charts/charts-page';
-import { DashboardPage } from '@/features/dashboard/dashboard-page';
-import { ProtectedRoute } from '@/routes/protected-route';
-import { ROUTE_PATHS } from '@/routes/route-paths';
+// import { ProtectedRoute } from '@/routes/protected-route';
+// import { ROUTE_PATHS } from '@/routes/route-paths';
 
-export const publicRoutes: RouteObject[] = [
-  {
-    path: ROUTE_PATHS.login,
-    element: <LoginPage />,
-  },
-];
+// Routes with no auth required (e.g. login). Add entries as you build pages:
+// { path: ROUTE_PATHS.login, element: <LoginPage /> }
+export const publicRoutes: RouteObject[] = [];
 
-export const privateRoutes: RouteObject[] = [
-  {
-    path: ROUTE_PATHS.dashboard,
-    element: (
-      <ProtectedRoute>
-        <MainLayout>
-          <DashboardPage />
-        </MainLayout>
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: ROUTE_PATHS.charts,
-    element: (
-      <ProtectedRoute>
-        <MainLayout>
-          <ChartsPage />
-        </MainLayout>
-      </ProtectedRoute>
-    ),
-  },
-];
+// Routes that require auth — wrap each element in <ProtectedRoute> and a
+// layout component once you have one, e.g.:
+// { path: ROUTE_PATHS.dashboard, element: <ProtectedRoute><MainLayout><DashboardPage /></MainLayout></ProtectedRoute> }
+export const privateRoutes: RouteObject[] = [];
 
+// Catch-all for unmatched paths. Point it at your real default route once
+// one exists (e.g. ROUTE_PATHS.dashboard) instead of '/'.
 export const fallbackRoute: RouteObject = {
   path: '*',
-  element: <Navigate to={ROUTE_PATHS.dashboard} replace />,
+  element: <Navigate to="/" replace />,
 };

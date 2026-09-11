@@ -1,6 +1,9 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 
+// Shared axios instance. Feature-level services (e.g. features/auth/api)
+// should import this instead of calling axios directly, so auth headers
+// and 401 handling stay centralized.
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL as string,
   timeout: 10000, // 10 seconds

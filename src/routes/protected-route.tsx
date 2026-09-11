@@ -1,23 +1,19 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { useIsAuthenticated } from '@/features/auth/hooks/use-login';
-import { ROUTE_PATHS } from '@/routes/route-paths';
-
+// Wrap private routes with this. Once you build src/features/auth, swap the
+// TODO below for a real auth hook (e.g. useIsAuthenticated from your store)
+// and point `to` at ROUTE_PATHS.login.
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = true; // TODO: replace with real auth check
   const location = useLocation();
 
   if (!isAuthenticated) {
     return (
-      <Navigate
-        to={ROUTE_PATHS.login}
-        replace
-        state={{ from: location.pathname }}
-      />
+      <Navigate to="/login" replace state={{ from: location.pathname }} />
     );
   }
 
